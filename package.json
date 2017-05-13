@@ -13,7 +13,6 @@
     "lint:errors": "yarn lint -- --quiet",
     "lint:nibble": "./node_modules/.bin/eslint-nibble both/ client/ server/",
     "lint:fix": "yarn lint -- --fix",
-    "prepush": "yarn test",
     "precommit": "yarn lint:staged",
     "format": "./node_modules/.bin/prettier-eslint \"*presentation/**/*.js\" --write"
   },
