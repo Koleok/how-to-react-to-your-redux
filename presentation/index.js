@@ -1,20 +1,26 @@
+/* eslint-disable max-len */
 import R from 'ramda'
 import React from 'react'
 
 import {
-  BlockQuote,
-  Cite,
+  // BlockQuote,
+  CodePane,
+  // Cite,
   Deck,
   Heading,
-  ListItem,
   List,
-  Quote,
+  ListItem,
+  // Quote,
   Slide,
   Text,
 } from 'spectacle'
 
 import preloader from 'spectacle/lib/utils/preloader'
 import createTheme from 'spectacle/lib/themes/default'
+
+/* eslint-disable  */
+import inlineLogicDemo from 'raw-loader!./inlineLogic.js.example'
+/* eslint-enable  */
 
 require('normalize.css')
 require('spectacle/lib/themes/default/index.css')
@@ -41,7 +47,7 @@ const theme = createTheme(
   }
 )
 
-const li = x => <ListItem key={x}>{x}</ListItem>
+const items = R.map(x => <ListItem key={x}>{x}</ListItem>)
 
 const Presentation = () => (
   <Deck transition={['zoom', 'slide']} transitionDuration={500} theme={theme}>
@@ -64,7 +70,7 @@ const Presentation = () => (
         Why you can start with react
       </Heading>
       <List>
-        {R.map(li, [
+        {items([
           'Reusable skill, write for any platform',
           '☝ demand and 👇 supply for react work',
           'Get your thing working quickly',
@@ -73,15 +79,16 @@ const Presentation = () => (
       </List>
     </Slide>
 
-    <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
+    <Slide transition={['fade']} bgColor="tertiary" textColor="primary">
       <Heading size={6} textColor="secondary" caps>
         Why you should SWITCH to react from other frameworks
         that shall remain ng-nameless
       </Heading>
       <List>
-        {R.map(li, [
+        {items([
           '🏁 You hate race conditions and digest cycle issues',
           '⚡ Test with node instead of headless browser',
+          '⌛ No waiting for framework features, just build `em',
           '💉 DI is optional',
         ])}
       </List>
@@ -89,50 +96,47 @@ const Presentation = () => (
 
     {/* Benefits of writing components that do as little internal logic as
       possible and some helpful utilities to help you out. */}
+    <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
+      <Heading size={6} textColor="secondary" caps>
+        {'Why I advocate for writing almost exclusively "dumb" components'}
+      </Heading>
+      <List>
+        {items([
+          'Remember separation of concerns?',
+          'Easy to test appearance and logic independently',
+          'No need to distinguish smart from dumb components',
+          'More natural reuse of components',
+        ])}
+      </List>
+    </Slide>
 
-    <Slide transition={['fade']} bgColor="tertiary">
-      <Heading size={6} textColor="primary" caps>Typography</Heading>
-      <Heading size={1} textColor="secondary">Heading 1</Heading>
-      <Heading size={2} textColor="secondary">Heading 2</Heading>
-      <Heading size={3} textColor="secondary">Heading 3</Heading>
-      <Heading size={4} textColor="secondary">Heading 4</Heading>
-      <Heading size={5} textColor="secondary">Heading 5</Heading>
-      <Text size={6} textColor="secondary">Standard text</Text>
+    {/* when we allow a step to compute ideal values at each
+    component boundary */}
+    <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
+      <Heading size={6} textColor="secondary" caps>
+        Cut noisy inline logic and leave fewer code paths per component
+      </Heading>
+      <CodePane lang="javascript" source={inlineLogicDemo} />
     </Slide>
 
     {/* Why choosing a state management tool is the most important choice
       you'll make and how to be glad you chose redux. */}
 
-    <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
-      <Heading size={6} textColor="secondary" caps>Standard List</Heading>
-      <List>
-        <ListItem>Item 1</ListItem>
-        <ListItem>Item 2</ListItem>
-        <ListItem>Item 3</ListItem>
-        <ListItem>Item 4</ListItem>
-      </List>
-    </Slide>
-
     {/* Building a clever little react app with some FP flavor. */}
 
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
-      <BlockQuote>
-        <Quote>Example Quote</Quote>
-        <Cite>Author</Cite>
-      </BlockQuote>
+      <p style={{ fontFamily: 'monospace' }}>
+        {
+          "Simplicity is hard work. But, there's a huge payoff. The person who has a genuinely simpler system - a system made out of genuinely simple parts, is going to be able to affect the greatest change with the least work. He's going to kick your ass. He's gonna spend more time simplifying things up front and in the long haul he's gonna wipe the plate with you because he'll have that ability to change things when you're struggling to push elephants around."
+        }
+      </p>
+      <p>Rich Hickey</p>
     </Slide>
 
     {/* The joy of debugging with redux and react dev tools */}
 
-    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
-      somthing
-    </Slide>
-
     {/* Why your choice to use these tools is going to allow your unit testing
       game to go bananas. */}
-    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
-      somthing
-    </Slide>
   </Deck>
 )
 

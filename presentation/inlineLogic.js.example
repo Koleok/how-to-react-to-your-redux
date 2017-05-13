@@ -1,0 +1,13 @@
+// Entangled
+const LowerCaseLink = ({ url, text }) => (
+  text && <a href={url}>{text.toLowerCase()}</a>
+)
+
+// Decoupled
+const Link = ({ url, text }) => (
+  <a href={url}>{text}</a>
+)
+
+const LowerCaseLink = withProps(({ text = 'link' }) => ({
+  text: text.toLowerCase(),
+}))(Link)
